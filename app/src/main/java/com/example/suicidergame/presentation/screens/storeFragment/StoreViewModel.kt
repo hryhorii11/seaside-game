@@ -30,4 +30,7 @@ class StoreViewModel @Inject constructor(
         preferencesManager.saveBoughtLifePreservers(boughtItems)
     }
 
+    fun updateMoneyAmount(moneyAmount: Int) {
+        preferencesManager.saveUserMoney(moneyAmount)
+    }
 }

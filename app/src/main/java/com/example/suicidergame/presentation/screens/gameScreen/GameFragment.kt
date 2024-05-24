@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.graphics.RectF
@@ -232,33 +233,34 @@ class GameFragment : Fragment() {
             initialCharacterX = characterImageView.x
             initialCharacterY = characterImageView.y
 
-            val jumpHeight = 200f
-            val jumpY = ObjectAnimator.ofFloat(
-                characterImageView,
-                "translationY",
-                0f,
-                -jumpHeight,
-                (spotView.top - characterImageView.top).toFloat()
-            )
-            val moveX = ObjectAnimator.ofFloat(
-                characterImageView,
-                "x",
+            val jumpHeight =
+                initialCharacterX - spotViewRect.centerX() - characterImageView.width / 2
+
+            val translateX = PropertyValuesHolder.ofFloat(
+                View.X,
+                initialCharacterX,
                 spotViewRect.centerX() - characterImageView.width / 2
             )
+            val translateY = PropertyValuesHolder.ofFloat(
+                View.Y,
+                initialCharacterY,
+                initialCharacterY - jumpHeight,
+                spotView.y
+            )
 
-            val animatorSet = AnimatorSet().apply {
-                playTogether(jumpY, moveX)
+            val jumpAnimator =
+                ObjectAnimator.ofPropertyValuesHolder(characterImageView, translateX, translateY)
+                    .apply {
                 duration = 500
                 interpolator = AccelerateDecelerateInterpolator()
             }
 
-            animatorSet.addListener(object : AnimatorListenerAdapter() {
+            jumpAnimator.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     checkResult()
                 }
             })
-
-            animatorSet.start()
+            jumpAnimator.start()
         }
     }
 

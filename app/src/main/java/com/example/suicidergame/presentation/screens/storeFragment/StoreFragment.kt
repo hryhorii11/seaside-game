@@ -50,32 +50,44 @@ class StoreFragment : Fragment() {
             buttonNextItem.setOnClickListener {
                 if (lifePreservesIndex < LifePreserves.entries.size - 1) {
                     lifePreservesIndex++
-                    setChosenLifePreserverContent(lifePreservesIndex)
-                }
+                } else lifePreservesIndex = 0
+                setChosenLifePreserverContent()
             }
             buttonPreviousItem.setOnClickListener {
                 if (lifePreservesIndex > 0) {
                     lifePreservesIndex--
-                    setChosenLifePreserverContent(lifePreservesIndex)
-                }
+                } else lifePreservesIndex = 2
+                setChosenLifePreserverContent()
             }
+
             buttonChoseOrBuy.setOnClickListener {
                 if (boughtItemsList.contains(lifePreservesIndex)) {
-                    viewModel.saveChosenLifePreserver(lifePreservesIndex)
-                    chosenLifePreserver = lifePreservesIndex
-                    setChosenLifePreserverContent(lifePreservesIndex)
+                    choseLifePreserver()
                 } else {
-                    if (userMoneyAmount >= LifePreserves.entries[lifePreservesIndex].price)
-                        boughtItemsList =
-                            boughtItemsList.toMutableList().apply { add(lifePreservesIndex) }
-                    viewModel.saveBoughtPreserves(boughtItemsList)
-                    setChosenLifePreserverContent(lifePreservesIndex)
+                    buyLifePreserver()
                 }
+                setChosenLifePreserverContent()
+
             }
         }
     }
 
-    private fun setChosenLifePreserverContent(lifePreservesIndex: Int) {
+    private fun buyLifePreserver() {
+        if (userMoneyAmount >= LifePreserves.entries[lifePreservesIndex].price)
+            boughtItemsList =
+                boughtItemsList.toMutableList().apply { add(lifePreservesIndex) }
+        viewModel.updateMoneyAmount(userMoneyAmount - LifePreserves.entries[lifePreservesIndex].price)
+        binding.textViewMoney.text =
+            (userMoneyAmount - LifePreserves.entries[lifePreservesIndex].price).toString()
+        viewModel.saveBoughtPreserves(boughtItemsList)
+    }
+
+    private fun choseLifePreserver() {
+        viewModel.saveChosenLifePreserver(lifePreservesIndex)
+        chosenLifePreserver = lifePreservesIndex
+    }
+
+    private fun setChosenLifePreserverContent() {
         with(binding) {
             imageViewLifePreserver.setImageDrawable(
                 AppCompatResources.getDrawable(
@@ -83,7 +95,7 @@ class StoreFragment : Fragment() {
                     LifePreserves.entries[lifePreservesIndex].id
                 )
             )
-            if (boughtItemsList.any { it == lifePreservesIndex }) {
+            if (boughtItemsList.contains(lifePreservesIndex)) {
                 textViewPrice.hide()
                 imageViewCoinPrice.hide()
                 buttonChoseOrBuy.text =
