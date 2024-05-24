@@ -1,0 +1,11 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.SuiciderGame" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/ic_launcher_background</item>
+        >        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+
+    <style name="Theme.SuiciderGame" parent="Base.Theme.SuiciderGame" />
+</resources>

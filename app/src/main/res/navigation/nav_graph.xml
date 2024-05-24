@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.suicidergame.presentation.screens.gameScreen.GameFragment"
+        android:label="GameFragment">
+        <action
+            android:id="@+id/action_gameFragment_to_gameOverFragment"
+            app:destination="@id/gameOverFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.suicidergame.presentation.screens.menuScreen.MenuFragment"
+        android:label="MenuFragment">
+        <action
+            android:id="@+id/action_menuFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_resultsFragment"
+            app:destination="@id/resultsFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameOverFragment"
+        android:name="com.example.suicidergame.presentation.screens.gameOverScreen.GameOverFragment"
+        android:label="GameOverFragment">
+        <argument
+            android:name="currentScore"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.example.suicidergame.presentation.screens.resultsScreen.ResultsFragment"
+        android:label="ResultsFragment" />
+    <fragment
+        android:id="@+id/storeFragment"
+        android:name="com.example.suicidergame.presentation.screens.storeFragment.StoreFragment"
+        android:label="StoreFragment" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.suicidergame.presentation.screens.splashScreen.SplashFragment"
+        android:label="SplashFragment">
+        <action
+            android:id="@+id/action_splashFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Seaside</string>
+    <string name="button_result_text">results</string>
+    <string name="button_start_game_text">Play</string>
+    <string name="button_store_text">store</string>
+    <string name="menu_title">Lifeguard</string>
+    <string name="game_over_text">Game Over</string>
+    <string name="results_fragment_title">Results</string>
+    <string name="store_fragment_title">Store</string>
+    <string name="buy">Buy</string>
+    <string name="button_choshe_item_text">Chose</string>
+    <string name="buy_item_button_text">Buy</string>
+    <string name="score_label">Score:</string>
+    <string name="chosen_button_text">Chosen</string>
+</resources>
