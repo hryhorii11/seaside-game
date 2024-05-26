@@ -73,13 +73,14 @@ class StoreFragment : Fragment() {
     }
 
     private fun buyLifePreserver() {
-        if (userMoneyAmount >= LifePreserves.entries[lifePreservesIndex].price)
+        if (userMoneyAmount >= LifePreserves.entries[lifePreservesIndex].price) {
             boughtItemsList =
                 boughtItemsList.toMutableList().apply { add(lifePreservesIndex) }
-        viewModel.updateMoneyAmount(userMoneyAmount - LifePreserves.entries[lifePreservesIndex].price)
-        binding.textViewMoney.text =
-            (userMoneyAmount - LifePreserves.entries[lifePreservesIndex].price).toString()
-        viewModel.saveBoughtPreserves(boughtItemsList)
+            viewModel.updateMoneyAmount(userMoneyAmount - LifePreserves.entries[lifePreservesIndex].price)
+            binding.textViewMoney.text =
+                (userMoneyAmount - LifePreserves.entries[lifePreservesIndex].price).toString()
+            viewModel.saveBoughtPreserves(boughtItemsList)
+        }
     }
 
     private fun choseLifePreserver() {
